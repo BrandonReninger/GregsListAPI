@@ -13,7 +13,7 @@ let _api = new axios.create({
 class CarService {
 
     bid(carId) {
-        let foundCar = _store.State.cars.find(car => car.id == carId)
+        let foundCar = store.State.cars.find(car => car.id == carId)
         if (foundCar) {
             foundCar.price += 100
             _api.put(carId, foundCar)
@@ -32,17 +32,28 @@ class CarService {
             }).catch(err => console.error(err))
     }
 
-    delete(index) {
-        _store.State.cars.splice(index, 1)
+    delete(carId) {
+        _api.delete(carId)
+            .then(res => {
+                console.log(res.data)
+                this.getCars()
+            }).catch(err => console.error(err))
     }
+
     create(newCarObject) {
-        let newCar = new Car(newCarObject)
-        _store.State.cars.push(newCar)
-        console.log(_store.State.cars)
+        _api.post('', newCarObject)
+            .then(res => {
+                console.log(res.data.data)
+                let newCar = new Car(res.data.data)
+                let cars = [newCar, ...store.State.cars]
+                store.commit('cars', cars)
+            }).catch(err => console.error(err))
     }
     constructor() {
         console.log("car service works")
+        this.getCars()
     }
+
 }
 
 

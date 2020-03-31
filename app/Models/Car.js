@@ -9,7 +9,7 @@ export default class Car {
         this.description = data.description || "No description provided."
     }
 
-    getTemplate(index) {
+    get Template() {
         return /*html*/ `
     <div class="col-4 border border-info rounded shadow">
       <h1>Make: ${this.make}</h1>
@@ -17,7 +17,7 @@ export default class Car {
       <h5>Year: ${this.year}</h5>
       <h5>Price: ${this.price}</h5>
       <img class="img-fluid" src="${this.imgUrl}" />
-      <button class="btn btn-danger btn-block" onclick="app.carController.delete(${index})">Delete</button>
+      <button class="btn btn-danger btn-block" onclick="app.carController.delete(${this.id})">Delete</button>
       <button type="button" class="btn btn-success btn-block" onclick="app.carController.bid('${this.id}')">Bid</button>
     </div>`
     }

@@ -1,5 +1,6 @@
 import _carService from '../Services/CarService.js'
 import _store from '../store.js'
+import store from "../store.js"
 
 
 //NOTE we need the element to put them in, access to the array of cars in the store, blank template to add them to, and a template for how they are displayed
@@ -7,7 +8,7 @@ function _drawCars() {
   let template = ''
   let cars = _store.State.cars
 
-  cars.forEach((car, index) => template += car.getTemplate(index))
+  cars.forEach(car => template += car.Template)
   document.getElementById("cars").innerHTML = template
 }
 
@@ -15,7 +16,7 @@ function _drawCars() {
 export default class CarController {
   constructor() {
     console.log("car controller works")
-    _drawCars()
+    _store.subscribe('cars', _drawCars)
   }
 
   bid(carId) {
@@ -36,14 +37,13 @@ export default class CarController {
 
     _carService.create(newCarObject)
     formData.reset()
-    _drawCars()
+    $('#add-car-modal').modal('toggle')
 
     console.log(newCarObject)
   }
 
-  delete(index) {
-    _carService.delete(index)
-    _drawCars()
+  delete(carId) {
+    _carService.delete(carId)
   }
 
 
