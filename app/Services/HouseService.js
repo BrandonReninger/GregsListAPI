@@ -11,10 +11,16 @@ let _api = axios.create({
 
 
 class HouseService {
-
-    constructor() {
-
+    create(newHouseObject) {
+        _api.post('', newHouseObject)
+            .then(res => {
+                console.log(res.data)
+                let newHouse = new House(res.data.data)
+                let houses = [newHouse, ...store.State.houses]
+                store.commit('houses', houses)
+            }).catch(err => console.error(err))
     }
+
 
     bid(houseId) {
         let foundHouse = store.State.houses.find(house => house.id == houseId)
@@ -30,8 +36,21 @@ class HouseService {
     getHouses() {
         _api.get()
             .then(res => {
-                let houses = res.data.data.map(rawHouseData => (rawHouseData))
+                let houses = res.data.data.map(rawHouseData => new House(rawHouseData))
+                store.commit('houses', houses)
+                console.log(store.State)
+            }).catch(err => console.error(err))
+    }
+
+    delete(houseId) {
+        _api.delete(houseId)
+            .then(res => {
+                console.log(res.data)
             })
+    }
+
+    constructor() {
+        this.getHouses()
     }
 
 }
