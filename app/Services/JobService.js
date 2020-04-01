@@ -21,12 +21,12 @@ class JobService {
             }).catch(err => console.error(err))
     }
 
-
-    bid(houseId) {
-        let foundHouse = store.State.houses.find(house => house.id == houseId)
-        if (houseId) {
-            foundHouse.price += 1000
-            _api.put(houseId, foundHouse)
+    //ANCHOR turn this function into an apply function down the road
+    bid(jobId) {
+        let foundJob = store.State.houses.find(job => job.id == jobId)
+        if (jobId) {
+            foundJob.price += 1000
+            _api.put(jobId, foundJob)
                 .then(res => {
                     this.getJobs()
                 }).catch(err => console.error(err))
