@@ -19,7 +19,7 @@ export default class House {
       <h5>Year: ${this.year}</h5>
       <h5>Price: ${this.price}</h5>
       <img class="img-fluid" src="${this.imgUrl}" />
-      <button class="btn btn-danger btn-block" onclick="app.houseController.delete(${this.id})">Delete</button>
+      <button class="btn btn-danger btn-block" onclick="app.houseController.delete('${this.id}')">Delete</button>
       <button type="button" class="btn btn-success btn-block" onclick="app.houseController.bid('${this.id}')">Bid</button>
     </div>`
     }

@@ -3,12 +3,18 @@ import _store from '../store.js'
 import store from "../store.js"
 
 
+function _drawHouses() {
+    let template = ""
+    let houses = _store.State.houses
 
+    houses.forEach(house => template += house.Template)
+    document.getElementById("houses").innerHTML = template
+}
 
 
 export default class HouseController {
     constructor() {
-
+        _store.subscribe('houses', _drawHouses)
     }
 
     bid(houseId) {

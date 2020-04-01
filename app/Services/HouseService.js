@@ -46,7 +46,7 @@ class HouseService {
         _api.delete(houseId)
             .then(res => {
                 console.log(res.data)
-            })
+            }).catch(err => console.error(err))
     }
 
     constructor() {
